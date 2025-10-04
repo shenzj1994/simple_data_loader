@@ -14,7 +14,12 @@ import pandas as pd
 import os
 import tempfile
 import shutil
+import sys
 from pathlib import Path
+
+# Add parent directory to path so we can import the package
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from simple_data_loader import SimpleDataLoader, load_data
 
 
