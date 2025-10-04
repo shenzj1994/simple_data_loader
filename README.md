@@ -20,12 +20,12 @@ pip install simple-data-loader
 
 ### Install from wheel file
 ```bash
-pip install simple_data_loader-1.0.2-py3-none-any.whl
+pip install simple_data_loader-1.0.5-py3-none-any.whl
 ```
 
 ### Install from source
 ```bash
-git clone https://github.com/shenzj1994/simple-data-loader.git
+git clone https://github.com/shenzj1994/simple_data_loader.git
 cd simple-data-loader
 pip install -e .
 ```

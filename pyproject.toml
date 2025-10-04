@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "simple-data-loader"
-version = "1.0.2"
+version = "1.0.5"
 description = "A simple Python package for loading data from CSV and XLSX files"
 readme = "README.md"
 license = {text = "MIT"}
@@ -44,10 +44,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/shenzj1994/simple-data-loader"
-Repository = "https://github.com/shenzj1994/simple-data-loader"
-Issues = "https://github.com/shenzj1994/simple-data-loader/issues"
-Documentation = "https://github.com/shenzj1994/simple-data-loader#readme"
+Homepage = "https://github.com/shenzj1994/simple_data_loader"
+Repository = "https://github.com/shenzj1994/simple_data_loader"
+Issues = "https://github.com/shenzj1994/simple_data_loader/issues"
+Documentation = "https://github.com/shenzj1994/simple_data_loader#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
