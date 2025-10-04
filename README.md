@@ -1,6 +1,6 @@
-# DataLoader
+# Simple Data Loader
 
-A Python class for loading data from CSV and XLSX files, with support for single files or concatenating multiple files from folders.
+A Python package for loading data from CSV and XLSX files, with support for single files or concatenating multiple files from folders.
 
 ## Features
 
@@ -13,12 +13,24 @@ A Python class for loading data from CSV and XLSX files, with support for single
 
 ## Installation
 
-1. Install the required dependencies:
+### Install from PyPI (when published)
 ```bash
-pip install -r requirements.txt
+pip install simple-data-loader
 ```
 
-2. Or install dependencies manually:
+### Install from wheel file
+```bash
+pip install simple_data_loader-1.0.2-py3-none-any.whl
+```
+
+### Install from source
+```bash
+git clone https://github.com/shenzj1994/simple-data-loader.git
+cd simple-data-loader
+pip install -e .
+```
+
+### Install dependencies only
 ```bash
 pip install pandas openpyxl xlrd
 ```
@@ -34,21 +46,21 @@ pip install pandas openpyxl xlrd
 ### Basic Usage
 
 ```python
-from data_loader import DataLoader
+from simple_data_loader import SimpleDataLoader
 
 # Load a single file
-loader = DataLoader("data.csv")
+loader = SimpleDataLoader("data.csv")
 df = loader.load()
 
 # Load all files from a folder
-loader = DataLoader("data_folder")
+loader = SimpleDataLoader("data_folder")
 df = loader.load()
 ```
 
 ### Using the Convenience Function
 
 ```python
-from data_loader import load_data
+from simple_data_loader import load_data
 
 # Direct loading
 df = load_data("data.csv")
@@ -60,7 +72,7 @@ df = load_data("data_folder")
 ### Class Initialization
 
 ```python
-DataLoader(file_path, include_subfolders=False, verbose=True, column_consistency='error')
+SimpleDataLoader(file_path, include_subfolders=False, verbose=True, column_consistency='error')
 ```
 
 **Parameters:**
@@ -74,14 +86,14 @@ DataLoader(file_path, include_subfolders=False, verbose=True, column_consistency
 #### 1. Single File Loading
 
 ```python
-from data_loader import DataLoader
+from simple_data_loader import SimpleDataLoader
 
 # Load a CSV file
-loader = DataLoader("sales_data.csv")
+loader = SimpleDataLoader("sales_data.csv")
 df = loader.load()
 
 # Load an Excel file
-loader = DataLoader("financial_report.xlsx")
+loader = SimpleDataLoader("financial_report.xlsx")
 df = loader.load()
 ```
 
@@ -93,7 +105,7 @@ sales_data.csv is imported with 1000 rows and 5 columns
 #### 2. Folder Loading (No Subfolders)
 
 ```python
-loader = DataLoader("data_folder", include_subfolders=False)
+loader = SimpleDataLoader("data_folder", include_subfolders=False)
 df = loader.load()
 ```
 
@@ -112,7 +124,7 @@ Combined dataset has 1000 rows and 4 columns
 #### 3. Folder Loading (With Subfolders)
 
 ```python
-loader = DataLoader("data_folder", include_subfolders=True)
+loader = SimpleDataLoader("data_folder", include_subfolders=True)
 df = loader.load()
 ```
 
@@ -121,7 +133,7 @@ This will recursively search through all subfolders and load all CSV/XLSX files.
 #### 4. Quiet Mode
 
 ```python
-loader = DataLoader("data.csv", verbose=False)
+loader = SimpleDataLoader("data.csv", verbose=False)
 df = loader.load()
 ```
 
@@ -131,15 +143,15 @@ No console output will be displayed.
 
 ```python
 # Error mode (default) - stops if columns don't match
-loader = DataLoader("data_folder", column_consistency='error')
+loader = SimpleDataLoader("data_folder", column_consistency='error')
 df = loader.load()
 
 # Warning mode - shows warning but continues
-loader = DataLoader("data_folder", column_consistency='warning')
+loader = SimpleDataLoader("data_folder", column_consistency='warning')
 df = loader.load()
 
 # Ignore mode - skips consistency check entirely
-loader = DataLoader("data_folder", column_consistency='ignore')
+loader = SimpleDataLoader("data_folder", column_consistency='ignore')
 df = loader.load()
 ```
 
@@ -151,7 +163,7 @@ df = loader.load()
 #### 6. Convenience Function
 
 ```python
-from data_loader import load_data
+from simple_data_loader import load_data
 
 # All parameters are optional
 df = load_data("data.csv")  # Uses defaults
@@ -165,7 +177,7 @@ df = load_data("data_folder", include_subfolders=True, verbose=False, column_con
 
 ## Error Handling
 
-The DataLoader handles various error scenarios:
+The SimpleDataLoader handles various error scenarios:
 
 - **File not found**: Raises `FileNotFoundError`
 - **Unsupported format**: Raises `ValueError` with format information
@@ -177,7 +189,11 @@ The DataLoader handles various error scenarios:
 
 ```
 project/
-├── data_loader.py
+├── simple_data_loader/
+│   ├── __init__.py
+│   └── simple_data_loader.py
+├── tests/
+│   └── test_data_loader_pytest.py
 ├── requirements.txt
 ├── example_usage.py
 ├── README.md
@@ -192,7 +208,7 @@ project/
 
 ## Running Examples
 
-To see the DataLoader in action, run the example script:
+To see the SimpleDataLoader in action, run the example script:
 
 ```bash
 python example_usage.py
@@ -200,9 +216,31 @@ python example_usage.py
 
 This will create sample data files and demonstrate various usage patterns.
 
+## Testing
+
+Run the comprehensive test suite:
+
+```bash
+# Run all tests
+python -m pytest
+
+# Run tests with verbose output
+python -m pytest -v
+
+# Run specific test class
+python -m pytest tests/test_data_loader_pytest.py::TestSingleFileLoading -v
+```
+
+The test suite includes 20 tests covering:
+- Single file loading
+- Folder loading with consistent files
+- Column consistency validation
+- Error handling
+- Data integrity checks
+
 ## API Reference
 
-### DataLoader Class
+### SimpleDataLoader Class
 
 #### Methods
 

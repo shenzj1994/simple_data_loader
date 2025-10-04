@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "simple-data-loader"
-version = "1.0.0"
+version = "1.0.2"
 description = "A simple Python package for loading data from CSV and XLSX files"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Zhongjie Shen", email = "askme@zshen.ca"}
 ]
 maintainers = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Zhongjie Shen", email = "askme@zshen.ca"}
 ]
 keywords = ["data loading", "csv", "xlsx", "pandas", "data analysis"]
 classifiers = [
@@ -44,10 +44,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/simple-data-loader"
-Repository = "https://github.com/yourusername/simple-data-loader"
-Issues = "https://github.com/yourusername/simple-data-loader/issues"
-Documentation = "https://github.com/yourusername/simple-data-loader#readme"
+Homepage = "https://github.com/shenzj1994/simple-data-loader"
+Repository = "https://github.com/shenzj1994/simple-data-loader"
+Issues = "https://github.com/shenzj1994/simple-data-loader/issues"
+Documentation = "https://github.com/shenzj1994/simple-data-loader#readme"
 
 [tool.setuptools.packages.find]
 where = ["."]
