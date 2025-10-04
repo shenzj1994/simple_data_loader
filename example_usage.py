@@ -5,7 +5,7 @@ This script demonstrates how to use the DataLoader to load data from
 single files or folders containing CSV and XLSX files.
 """
 
-from data_loader import DataLoader, load_data
+from simple_data_loader import SimpleDataLoader, load_data
 import pandas as pd
 
 
@@ -14,7 +14,7 @@ def example_single_file():
     print("=== Example: Single File Loading ===")
     
     # Example with verbose output (default)
-    loader = DataLoader("example_data.csv", verbose=True)
+    loader = SimpleDataLoader("example_data.csv", verbose=True)
     df = loader.load()
     print(f"Loaded data shape: {df.shape}")
     print(f"Columns: {list(df.columns)}")
@@ -26,7 +26,7 @@ def example_folder():
     print("=== Example: Folder Loading ===")
     
     # Load all files from a folder (no subfolders)
-    loader = DataLoader("data_folder", include_subfolders=False, verbose=True)
+    loader = SimpleDataLoader("data_folder", include_subfolders=False, verbose=True)
     df = loader.load()
     print(f"Combined data shape: {df.shape}")
     print()
@@ -37,7 +37,7 @@ def example_with_subfolders():
     print("=== Example: Folder Loading with Subfolders ===")
     
     # Load all files from a folder including subfolders
-    loader = DataLoader("data_folder", include_subfolders=True, verbose=True)
+    loader = SimpleDataLoader("data_folder", include_subfolders=True, verbose=True)
     df = loader.load()
     print(f"Combined data shape: {df.shape}")
     print()
@@ -48,7 +48,7 @@ def example_quiet_mode():
     print("=== Example: Quiet Mode ===")
     
     # Load data with minimal output
-    loader = DataLoader("example_data.csv", verbose=False)
+    loader = SimpleDataLoader("example_data.csv", verbose=False)
     df = loader.load()
     print(f"Loaded data shape: {df.shape} (no verbose output)")
     print()
@@ -92,20 +92,20 @@ def example_column_consistency():
     
     # Test error mode
     try:
-        loader = DataLoader("inconsistent_data", column_consistency='error')
+        loader = SimpleDataLoader("inconsistent_data", column_consistency='error')
         df = loader.load()
     except ValueError as e:
         print(f"Error mode caught inconsistency: {str(e)[:100]}...")
     
     # Test warning mode
     print("\nTesting warning mode:")
-    loader = DataLoader("inconsistent_data", column_consistency='warning')
+    loader = SimpleDataLoader("inconsistent_data", column_consistency='warning')
     df = loader.load()
     print(f"Warning mode loaded data shape: {df.shape}")
     
     # Test ignore mode
     print("\nTesting ignore mode:")
-    loader = DataLoader("inconsistent_data", column_consistency='ignore')
+    loader = SimpleDataLoader("inconsistent_data", column_consistency='ignore')
     df = loader.load()
     print(f"Ignore mode loaded data shape: {df.shape}")
     print()

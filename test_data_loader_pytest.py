@@ -1,7 +1,7 @@
 """
-Pytest test suite for DataLoader class.
+Pytest test suite for SimpleDataLoader class.
 
-This module contains comprehensive tests for the DataLoader functionality:
+This module contains comprehensive tests for the SimpleDataLoader functionality:
 - Single file loading
 - Folder loading with consistent files
 - Folder loading with inconsistent files
@@ -15,7 +15,7 @@ import os
 import tempfile
 import shutil
 from pathlib import Path
-from data_loader import DataLoader, load_data
+from simple_data_loader import SimpleDataLoader, load_data
 
 
 @pytest.fixture(scope="module")
@@ -114,7 +114,7 @@ class TestSingleFileLoading:
     def test_load_single_csv_file(self, test_data_dir):
         """Test loading a single CSV file."""
         file_path = os.path.join(test_data_dir, "single_file", "employees.csv")
-        loader = DataLoader(file_path, verbose=False)
+        loader = SimpleDataLoader(file_path, verbose=False)
         df = loader.load()
         
         # Assertions
@@ -126,7 +126,7 @@ class TestSingleFileLoading:
     def test_load_single_file_with_verbose(self, test_data_dir, capsys):
         """Test single file loading with verbose output."""
         file_path = os.path.join(test_data_dir, "single_file", "employees.csv")
-        loader = DataLoader(file_path, verbose=True)
+        loader = SimpleDataLoader(file_path, verbose=True)
         df = loader.load()
         
         captured = capsys.readouterr()
@@ -140,7 +140,7 @@ class TestConsistentFolderLoading:
     def test_load_consistent_folder(self, test_data_dir):
         """Test loading a folder with consistent files."""
         folder_path = os.path.join(test_data_dir, "consistent_folder")
-        loader = DataLoader(folder_path, verbose=False)
+        loader = SimpleDataLoader(folder_path, verbose=False)
         df = loader.load()
         
         # Assertions
@@ -152,7 +152,7 @@ class TestConsistentFolderLoading:
     def test_load_consistent_folder_with_verbose(self, test_data_dir, capsys):
         """Test consistent folder loading with verbose output."""
         folder_path = os.path.join(test_data_dir, "consistent_folder")
-        loader = DataLoader(folder_path, verbose=True)
+        loader = SimpleDataLoader(folder_path, verbose=True)
         df = loader.load()
         
         captured = capsys.readouterr()
@@ -164,7 +164,7 @@ class TestConsistentFolderLoading:
     def test_load_consistent_folder_with_subfolders(self, test_data_dir):
         """Test loading consistent folder with subfolder option."""
         folder_path = os.path.join(test_data_dir, "consistent_folder")
-        loader = DataLoader(folder_path, include_subfolders=True, verbose=False)
+        loader = SimpleDataLoader(folder_path, include_subfolders=True, verbose=False)
         df = loader.load()
         
         # Should work the same since no subfolders exist
@@ -177,7 +177,7 @@ class TestInconsistentFolderLoading:
     def test_inconsistent_folder_error_mode(self, test_data_dir):
         """Test inconsistent folder loading with error mode."""
         folder_path = os.path.join(test_data_dir, "inconsistent_folder")
-        loader = DataLoader(folder_path, column_consistency='error', verbose=False)
+        loader = SimpleDataLoader(folder_path, column_consistency='error', verbose=False)
         
         with pytest.raises(ValueError, match="Column consistency issues found"):
             loader.load()
@@ -185,7 +185,7 @@ class TestInconsistentFolderLoading:
     def test_inconsistent_folder_warning_mode(self, test_data_dir):
         """Test inconsistent folder loading with warning mode."""
         folder_path = os.path.join(test_data_dir, "inconsistent_folder")
-        loader = DataLoader(folder_path, column_consistency='warning', verbose=False)
+        loader = SimpleDataLoader(folder_path, column_consistency='warning', verbose=False)
         
         # Should not raise an error, but should show warning
         with pytest.warns(UserWarning, match="Column consistency issues found"):
@@ -197,7 +197,7 @@ class TestInconsistentFolderLoading:
     def test_inconsistent_folder_ignore_mode(self, test_data_dir):
         """Test inconsistent folder loading with ignore mode."""
         folder_path = os.path.join(test_data_dir, "inconsistent_folder")
-        loader = DataLoader(folder_path, column_consistency='ignore', verbose=False)
+        loader = SimpleDataLoader(folder_path, column_consistency='ignore', verbose=False)
         
         df = loader.load()
         
@@ -207,7 +207,7 @@ class TestInconsistentFolderLoading:
     def test_inconsistent_folder_warning_mode_with_verbose(self, test_data_dir, capsys):
         """Test warning mode with verbose output."""
         folder_path = os.path.join(test_data_dir, "inconsistent_folder")
-        loader = DataLoader(folder_path, column_consistency='warning', verbose=True)
+        loader = SimpleDataLoader(folder_path, column_consistency='warning', verbose=True)
         
         with pytest.warns(UserWarning):
             df = loader.load()
@@ -219,7 +219,7 @@ class TestInconsistentFolderLoading:
     def test_inconsistent_folder_ignore_mode_with_verbose(self, test_data_dir, capsys):
         """Test ignore mode with verbose output."""
         folder_path = os.path.join(test_data_dir, "inconsistent_folder")
-        loader = DataLoader(folder_path, column_consistency='ignore', verbose=True)
+        loader = SimpleDataLoader(folder_path, column_consistency='ignore', verbose=True)
         
         df = loader.load()
         
@@ -262,14 +262,14 @@ class TestErrorHandling:
     
     def test_file_not_found(self):
         """Test handling of non-existent file."""
-        loader = DataLoader("non_existent_file.csv", verbose=False)
+        loader = SimpleDataLoader("non_existent_file.csv", verbose=False)
         
         with pytest.raises(FileNotFoundError):
             loader.load()
     
     def test_invalid_path_type(self):
         """Test handling of invalid path type."""
-        loader = DataLoader("test_path", verbose=False)
+        loader = SimpleDataLoader("test_path", verbose=False)
         
         # This should work if test_path doesn't exist as file or directory
         with pytest.raises(FileNotFoundError):
@@ -278,14 +278,14 @@ class TestErrorHandling:
     def test_invalid_column_consistency_value(self):
         """Test handling of invalid column_consistency parameter."""
         with pytest.raises(ValueError, match="column_consistency must be one of"):
-            DataLoader("test.csv", column_consistency='invalid')
+            SimpleDataLoader("test.csv", column_consistency='invalid')
     
     def test_empty_folder(self, test_data_dir):
         """Test handling of empty folder."""
         empty_folder = os.path.join(test_data_dir, "empty_folder")
         os.makedirs(empty_folder, exist_ok=True)
         
-        loader = DataLoader(empty_folder, verbose=False)
+        loader = SimpleDataLoader(empty_folder, verbose=False)
         
         with pytest.raises(ValueError, match="No supported files"):
             loader.load()
@@ -297,7 +297,7 @@ class TestDataIntegrity:
     def test_data_types_preserved(self, test_data_dir):
         """Test that data types are preserved correctly."""
         file_path = os.path.join(test_data_dir, "single_file", "employees.csv")
-        loader = DataLoader(file_path, verbose=False)
+        loader = SimpleDataLoader(file_path, verbose=False)
         df = loader.load()
         
         # Check data types
@@ -311,7 +311,7 @@ class TestDataIntegrity:
     def test_index_reset_after_concatenation(self, test_data_dir):
         """Test that index is reset after concatenation."""
         folder_path = os.path.join(test_data_dir, "consistent_folder")
-        loader = DataLoader(folder_path, verbose=False)
+        loader = SimpleDataLoader(folder_path, verbose=False)
         df = loader.load()
         
         # Index should be reset to 0, 1, 2, ..., 29
@@ -320,7 +320,7 @@ class TestDataIntegrity:
     def test_no_duplicate_columns_after_concatenation(self, test_data_dir):
         """Test that no duplicate columns exist after concatenation."""
         folder_path = os.path.join(test_data_dir, "consistent_folder")
-        loader = DataLoader(folder_path, verbose=False)
+        loader = SimpleDataLoader(folder_path, verbose=False)
         df = loader.load()
         
         # Should have exactly 6 unique columns

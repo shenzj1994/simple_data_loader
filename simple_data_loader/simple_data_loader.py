@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Union, Optional
 
 
-class DataLoader:
+class SimpleDataLoader:
     """
     A class to load data from CSV and XLSX files.
     
@@ -16,7 +16,7 @@ class DataLoader:
     def __init__(self, file_path: str, include_subfolders: bool = False, verbose: bool = True, 
                  column_consistency: str = 'error'):
         """
-        Initialize the DataLoader.
+        Initialize the SimpleDataLoader.
         
         Args:
             file_path (str): Path to a file or folder
@@ -223,5 +223,5 @@ def load_data(file_path: str, include_subfolders: bool = False, verbose: bool = 
     Returns:
         pd.DataFrame: Loaded data as a pandas DataFrame
     """
-    loader = DataLoader(file_path, include_subfolders, verbose, column_consistency)
+    loader = SimpleDataLoader(file_path, include_subfolders, verbose, column_consistency)
     return loader.load()
