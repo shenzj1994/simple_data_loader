@@ -18,12 +18,12 @@ def read_requirements():
 setup(
     name="simple-data-loader",
     version="1.0.0",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Zhongjie Shen",
+    author_email="askme@zshen.ca",
     description="A simple Python package for loading data from CSV and XLSX files",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/simple-data-loader",
+    url="https://github.com/shenzj1994/simple-data-loader",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
