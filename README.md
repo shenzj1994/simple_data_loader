@@ -1,6 +1,48 @@
 # Simple Data Loader
 
-A Python package for loading data from CSV and XLSX files, with support for single files or concatenating multiple files from folders.
+Load CSV and Excel files into a single pandas DataFrame — from one file or by concatenating many files in a folder. Simple defaults, clear errors, and optional consistency checks.
+
+## TL;DR Quick Start
+
+### Install
+```bash
+pip install simple-data-loader
+```
+
+### Load a single file
+```python
+from simple_data_loader import load_data
+
+df = load_data("path\\to\\file.csv")
+```
+
+### Load all files in a folder
+```python
+from simple_data_loader import SimpleDataLoader
+
+loader = SimpleDataLoader(
+    "path\\to\\folder",          # file or folder
+    include_subfolders=False,        # set True to recurse into subfolders
+    verbose=True,                    # print progress/info
+    column_consistency='error'       # 'error' | 'warning' | 'ignore'
+)
+
+df = loader.load()
+```
+
+### Parameters at a glance
+- file_path: str — path to a file or a folder
+- include_subfolders: bool — include subfolders when loading a folder (default False)
+- verbose: bool — print per-file and summary info (default True)
+- column_consistency: 'error' | 'warning' | 'ignore' — how to handle column mismatches when loading a folder (default 'error')
+
+Supported formats: .csv, .xlsx, .xls
+
+Tip: Use 'warning' to proceed while notifying about mismatched columns, or 'ignore' to skip the check entirely.
+
+—
+
+Below are the full details, examples, and testing instructions.
 
 ## Features
 
@@ -13,21 +55,9 @@ A Python package for loading data from CSV and XLSX files, with support for sing
 
 ## Installation
 
-### Install from PyPI (when published)
+### Install from PyPI
 ```bash
 pip install simple-data-loader
-```
-
-### Install from wheel file
-```bash
-pip install simple_data_loader-1.0.5-py3-none-any.whl
-```
-
-### Install from source
-```bash
-git clone https://github.com/shenzj1994/simple_data_loader.git
-cd simple-data-loader
-pip install -e .
 ```
 
 ### Install dependencies only
@@ -72,6 +102,7 @@ df = load_data("data_folder")
 ### Class Initialization
 
 ```python
+from simple_data_loader import SimpleDataLoader
 SimpleDataLoader(file_path, include_subfolders=False, verbose=True, column_consistency='error')
 ```
 
